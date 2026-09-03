@@ -1,33 +1,33 @@
-# file_share
+# file_share - hosted via GitHub Pages
 
-Drop a PDF here for someone else to download.
+**Site:** https://alexfw16.github.io/file_share/
 
-## Quick upload (45MB PDF)
+Drop a PDF here -> it will be hosted at `https://alexfw16.github.io/file_share/YOUR-FILE.pdf`
 
-### Option 1: Fastest - GitHub Release (Recommended for 45MB)
-Keeps repo light, gives direct download link.
+## Upload 45MB PDF (quick)
 
+1. Copy PDF into this folder:
+   ```bash
+   cp /path/to/your.pdf .
+   ```
+
+2. Push to GitHub Pages:
+   ```bash
+   git add your.pdf
+   git commit -m "Add PDF"
+   git push
+   ```
+
+3. Wait ~30-60s for Pages to deploy, then share:
+   ```
+   https://alexfw16.github.io/file_share/your.pdf
+   ```
+
+Anyone can download directly - no login needed.
+
+## Alternative: via `gh` CLI
 ```bash
-# Put your PDF in this folder, then:
-gh release create v1.0 your-file.pdf --title "PDF share" --notes "45MB PDF"
-
-# Share this link:
-# https://github.com/AlexFW16/file_share/releases/download/v1.0/your-file.pdf
+gh release create v1.0 your.pdf --title "PDF"  # also works, but Pages URL is shorter
 ```
 
-Or via web: https://github.com/AlexFW16/file_share/releases/new -> drag & drop PDF -> Publish -> share link.
-
-### Option 2: Direct git push
-```bash
-# Put your PDF in this folder, then:
-git add your-file.pdf
-git commit -m "Add PDF"
-git push
-
-# Share this link:
-# https://github.com/AlexFW16/file_share/blob/main/your-file.pdf
-# Direct download (raw): https://raw.githubusercontent.com/AlexFW16/file_share/main/your-file.pdf
-```
-
-## Download
-Other person just clicks the link above -> Download button / or `wget <link>`.
+Site source: `main` branch `/` (Pages legacy build). `.nojekyll` enabled for binary files.
