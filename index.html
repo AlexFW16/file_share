@@ -4,48 +4,29 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Downloading PDF...</title>
+<meta http-equiv="refresh" content="1; url=compressed-public-sustainability-report.pdf">
 <style>body{font-family:system-ui,sans-serif;max-width:700px;margin:40px auto;padding:0 20px;text-align:center} a{color:#0969da} #status{margin:20px 0;color:#555} .spinner{border:3px solid #eee;border-top:3px solid #0969da;border-radius:50%;width:24px;height:24px;animation:spin 1s linear infinite;margin:20px auto}@keyframes spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}</style>
 </head>
 <body>
 <h1>Downloading PDF...</h1>
 <div class="spinner"></div>
-<p id="status">Finding PDF, your download will start automatically...</p>
-<p><a id="manual" href="#">If download doesn't start, click here</a></p>
-<p style="margin-top:40px;font-size:14px;color:#888"><a href="https://github.com/AlexFW16/file_share">View on GitHub</a></p>
+<p id="status">Starting download...</p>
+<p><a id="manual" href="compressed-public-sustainability-report.pdf" download>Click here if download doesn't start</a></p>
+<p style="margin-top:40px;font-size:14px;color:#888"><a href="https://github.com/AlexFW16/file_share">View on GitHub</a> • Direct: <code>compressed-public-sustainability-report.pdf</code> (46 MB)</p>
 <script>
-async function autoDownload(){
+(function(){
+  const pdf = 'compressed-public-sustainability-report.pdf';
   const status = document.getElementById('status');
-  const manual = document.getElementById('manual');
-  try {
-    const res = await fetch('https://api.github.com/repos/AlexFW16/file_share/contents?'+Date.now());
-    if(!res.ok) throw new Error('API '+res.status);
-    const files = await res.json();
-    const pdf = files.find(f => f.name.toLowerCase().endsWith('.pdf'));
-    if(!pdf){
-      status.textContent = 'No PDF found yet. Upload a PDF to the repo.';
-      manual.style.display='none';
-      return;
-    }
-    // Use Pages URL (relative) so it stays on same domain and triggers download
-    const url = './' + encodeURIComponent(pdf.name);
-    manual.href = url;
-    manual.download = pdf.name;
-    status.textContent = 'Found ' + pdf.name + ' (' + (pdf.size/1024/1024).toFixed(1) + ' MB) — starting download...';
-    // Trigger download attribute (forces Save As instead of preview)
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = pdf.name;
-    document.body.appendChild(a);
-    a.click();
-    // Fallback: also navigate after 1s if download attribute blocked
-    setTimeout(()=>{ window.location.href = url; }, 1000);
-  } catch(e){
-    status.textContent = 'Could not auto-find PDF: ' + e.message + '. Trying direct link...';
-    // Fallback: try to hardcode if you know filename - replace FILE.pdf below
-    // window.location.href = './FILE.pdf';
-  }
-}
-autoDownload();
+  status.textContent = 'Downloading ' + pdf + ' — 46 MB';
+  // Trigger download attribute immediately (forces Save dialog)
+  const a = document.createElement('a');
+  a.href = pdf;
+  a.download = pdf;
+  document.body.appendChild(a);
+  a.click();
+  // Fallback navigate after 500ms if browser blocks download attribute
+  setTimeout(()=>{ window.location.href = pdf; }, 600);
+})();
 </script>
 </body>
 </html>
